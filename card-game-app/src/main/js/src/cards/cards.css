@@ -1,0 +1,12 @@
+.cardImage {
+    height: 20pc
+}
+
+.cardElement {
+    border: black;
+    border-width: medium;
+}
+
+.expandedCardElement {
+    align-content: center;
+}
