@@ -25,7 +25,15 @@ public class CardGatherer {
 
     @EventListener(classes = ContextRefreshedEvent.class)
     public void processStarter() throws IOException {
-        List<CardDetails> cards = cardConsumer.getCardsForSetCode("MH1");
+        saveCardsForSetcode("RTR");
+        saveCardsForSetcode("KTK");
+        saveCardsForSetcode("ELD");
+        saveCardsForSetcode("DGM");
+        saveCardsForSetcode("MH1");
+    }
+
+    private void saveCardsForSetcode(String mh1) throws IOException {
+        List<CardDetails> cards = cardConsumer.getCardsForSetCode(mh1);
         saveToRepository(cards);
     }
 

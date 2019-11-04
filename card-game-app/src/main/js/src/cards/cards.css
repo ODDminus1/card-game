@@ -1,12 +1,37 @@
+.cardList {
+  display: flex;
+  width: available;
+  flex-wrap: wrap;
+  flex-grow: inherit;
+  flex-direction: column;
+  max-height: 100vh;
+  padding-top: 50px;
+}
 .cardImage {
-    height: 20pc
+  /*max-height: 55vh;*/
+  max-width: 22vw;
+  border-radius: 18px;
 }
-
-.cardElement {
-    border: black;
-    border-width: medium;
+.cardTuple {
+  background-color: #AAAAAA;
+  display: inline;
+  border-width: medium;
+  border-color: #AAAAAA;
+  border-style: solid;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 5px;
+  max-width: 22vw;
 }
-
-.expandedCardElement {
-    align-content: center;
+.pokerCardContainer {
+  margin-bottom: -30pc;
 }
+.magicCardContainer {
+  margin-top: 10vh;
+  background: none;
+}
+.cardContainer {
+  float: left;
+  max-width: 50vh;
+}
+/*# sourceMappingURL=cards.css.map */

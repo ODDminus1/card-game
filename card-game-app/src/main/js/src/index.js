@@ -1,49 +1,49 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom'
 import './index.css'
-import './cards/cards'
+import CardSection from './cards/cards'
+import Navbar from './navbar/Navbar'
+import ReactDOM from 'react-dom'
 
-class Table extends Component {
-  state = {
-    number: 0
-  };
+let types = "instant,sorcery";
+let count = 4;
 
-  refreshState() {
-    fetch('http://localhost:8080/api/random')
+class Layout extends Component {
+  state = {cards: []};
+
+  refreshCards() {
+    fetch('http://localhost:8080/api/cards?numberOfCards=' + count + '&types=' + types)
       .then(res => res.json())
       .then((data) => {
-        this.setState({number: data})
-      })
+        this.setState({cards: data})
+      });
   }
 
-  componentDidMount() {
-    this.refreshState();
+  constructor(props) {
+    super(props)
+    this.state = {cards: []};
+    this.refresh = this.refresh;
+    this.refreshCards()
   }
 
-  renderListElement(i) {
-    var props = {value: this.state.number};
-    return React.createElement(ListElement, props, props.value.number)
+  refresh = () => {
+    fetch('http://localhost:8080/api/cards?numberOfCards=' + count + '&types=' + types)
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({cards: data})
+      });
+    console.log("refreshed")
   }
 
   render() {
-    return React.createElement('div', {className: 'shopping-list'},
-      React.createElement('h1', null, 'Random number'),
-      React.createElement('ul', null,
-        this.renderListElement(1),
-        this.renderListElement(2)
-      ));
+    return <div>
+      <Navbar refresher={this.refresh}/>
+      <CardSection cards={this.state.cards}/>
+    </div>
+      ;
   }
 }
 
-class ListElement extends Component {
-  render() {
-    return React.createElement('li', null, this.props.value)
-  }
-}
-
-if (false) {
-  ReactDOM.render(
-    <Table/>,
-    document.getElementById('root')
-  );
-}
+ReactDOM.render(
+  <Layout/>,
+  document.getElementById('root')
+);
