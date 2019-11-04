@@ -1,14 +1,11 @@
 .cardList {
   display: flex;
-  width: available;
   flex-wrap: wrap;
-  flex-grow: inherit;
   flex-direction: column;
   max-height: 100vh;
   padding-top: 50px;
 }
 .cardImage {
-  /*max-height: 55vh;*/
   max-width: 22vw;
   border-radius: 18px;
 }
