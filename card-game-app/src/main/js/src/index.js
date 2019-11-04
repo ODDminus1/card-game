@@ -26,7 +26,7 @@ class Layout extends Component {
   }
 
   refresh = () => {
-    fetch('http://localhost:8080/api/cards?numberOfCards=' + count + '&types=' + types)
+    fetch('https://random-highs.herokuapp.com/api/cards?numberOfCards=' + count + '&types=' + types)
       .then(res => res.json())
       .then((data) => {
         this.setState({cards: data})

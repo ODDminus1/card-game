@@ -40,6 +40,11 @@ public class ScryfallCardConsumer {
             Boolean hasMore;
             JsonNode scryfallResponseJsonNode = objectMapper.readTree(content.getBody());
             do {
+                try {
+                    Thread.sleep(100);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 List<CardDetails> cardsForResponse = getCardsFromScryfallResponse(scryfallResponseJsonNode);
                 cards.addAll(cardsForResponse);
                 hasMore = objectMapper.convertValue(scryfallResponseJsonNode.get("has_more"), Boolean.class);
