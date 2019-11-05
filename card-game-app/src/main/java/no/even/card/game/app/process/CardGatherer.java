@@ -23,17 +23,43 @@ public class CardGatherer {
     @Autowired
     private CardRepository cardRepository;
 
+    private static final List<String> interestingSetCodes =
+            List.of(
+                    "RTR",
+                    "GTC",
+                    "DGM",
+                    "THS",
+                    "BNG",
+                    "JOU",
+                    "KTK",
+                    "FRF",
+                    "DTK",
+                    "BFZ",
+                    "OGW",
+                    "SOI",
+                    "EMN",
+                    "KLD",
+                    "AER",
+                    "AKH",
+                    "HOU",
+                    "XLN",
+                    "RIX",
+                    "DOM",
+                    "GRN",
+                    "RNA",
+                    "WAR",
+                    "ELD"
+            );
+
     @EventListener(classes = ContextRefreshedEvent.class)
     public void processStarter() throws IOException {
-        saveCardsForSetcode("RTR");
-        saveCardsForSetcode("KTK");
-        saveCardsForSetcode("ELD");
-        saveCardsForSetcode("DGM");
-        saveCardsForSetcode("MH1");
+        for (String interestingSetCode : interestingSetCodes) {
+            saveCardsForSetcode(interestingSetCode);
+        }
     }
 
-    private void saveCardsForSetcode(String mh1) throws IOException {
-        List<CardDetails> cards = cardConsumer.getCardsForSetCode(mh1);
+    private void saveCardsForSetcode(String setCode) throws IOException {
+        List<CardDetails> cards = cardConsumer.getCardsForSetCode(setCode);
         saveToRepository(cards);
     }
 
