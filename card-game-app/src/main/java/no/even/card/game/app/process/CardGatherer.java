@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 @Component
 public class CardGatherer {
     @Autowired
@@ -64,13 +62,18 @@ public class CardGatherer {
     }
 
     private void saveToRepository(List<CardDetails> cards) {
-        List<Card> collect = cards.stream().map(c -> Card.builder()
-                .name(c.getName())
-                .multiverseId(c.getMultiverseIds().stream().max(Comparator.naturalOrder()).orElse(-1L))
-                .imageUrl(c.getImageUrl().getNormal())
-                .typeLine(c.getTypesLine())
-                .build())
-                .collect(toList());
-        cardRepository.saveAll(collect);
+        cards.forEach(c -> {
+            try {
+                Card build = Card.builder()
+                        .name(c.getName())
+                        .multiverseId(c.getMultiverseIds().stream().max(Comparator.naturalOrder()).orElse(-1L))
+                        .imageUrl(c.getImageUrl().getNormal())
+                        .typeLine(c.getTypesLine())
+                        .build();
+                cardRepository.save(build);
+            } catch (Exception e) {
+                System.out.println("failed for " + c.getName());
+            }
+        });
     }
 }
